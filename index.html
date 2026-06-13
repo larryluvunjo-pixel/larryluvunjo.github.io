@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>larrydesigns — Creative Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --gold:#C9A84C;--gold-light:#E8C97A;--dark:#0D0D0D;--dark2:#141414;--dark3:#1C1C1C;
+    --dark4:#252525;--text:#F5F5F0;--muted:#888880;--border:#2A2A2A;
+  }
+  body{background:var(--dark);color:var(--text);font-family:'Inter',sans-serif;line-height:1.6}
+  a{color:inherit;text-decoration:none}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,0.95);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-family:'Playfair Display',serif;font-size:22px;color:var(--gold);letter-spacing:1px}
+  .nav-links{display:flex;gap:2rem;list-style:none}
+  .nav-links a{font-size:13px;font-weight:400;color:var(--muted);letter-spacing:0.5px;transition:color 0.2s}
+  .nav-links a:hover{color:var(--text)}
+  .nav-cta{background:var(--gold);color:#000;font-size:13px;font-weight:600;padding:8px 20px;border-radius:4px;cursor:pointer;border:none;letter-spacing:0.5px;transition:background 0.2s}
+  .nav-cta:hover{background:var(--gold-light)}
+
+  /* HERO */
+  .hero{min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 2rem;border-bottom:1px solid var(--border)}
+  .hero-tag{font-size:11px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:1.5rem}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:700;line-height:1.1;margin-bottom:1.5rem;max-width:800px}
+  .hero h1 span{color:var(--gold)}
+  .hero p{font-size:16px;color:var(--muted);max-width:500px;margin-bottom:2.5rem;line-height:1.8}
+  .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+  .btn-gold{background:var(--gold);color:#000;font-size:14px;font-weight:600;padding:14px 32px;border-radius:4px;cursor:pointer;border:none;letter-spacing:0.5px;transition:background 0.2s}
+  .btn-gold:hover{background:var(--gold-light)}
+  .btn-outline{background:transparent;color:var(--text);font-size:14px;font-weight:400;padding:14px 32px;border-radius:4px;cursor:pointer;border:1px solid var(--border);letter-spacing:0.5px;transition:border-color 0.2s,color 0.2s}
+  .btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+  .hero-stats{display:flex;gap:3rem;margin-top:4rem;padding-top:3rem;border-top:1px solid var(--border);flex-wrap:wrap;justify-content:center}
+  .stat-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--gold)}
+  .stat-label{font-size:12px;color:var(--muted);letter-spacing:0.5px;margin-top:4px}
+
+  /* SECTION */
+  section{padding:6rem 2rem;max-width:1100px;margin:0 auto}
+  .section-tag{font-size:11px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:1rem}
+  .section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;margin-bottom:1rem}
+  .section-sub{font-size:15px;color:var(--muted);max-width:500px;line-height:1.8;margin-bottom:3rem}
+
+  /* SERVICES */
+  .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+  .service-card{background:var(--dark3);border:1px solid var(--border);border-radius:8px;padding:2rem;transition:border-color 0.2s,transform 0.2s;cursor:pointer}
+  .service-card:hover{border-color:var(--gold);transform:translateY(-4px)}
+  .service-icon{width:48px;height:48px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;font-size:22px}
+  .service-card h3{font-family:'Playfair Display',serif;font-size:18px;margin-bottom:0.75rem}
+  .service-card p{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:1.5rem}
+  .service-includes{list-style:none;margin-bottom:1.5rem}
+  .service-includes li{font-size:12px;color:var(--muted);padding:4px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+  .service-includes li::before{content:'✓';color:var(--gold);font-size:11px}
+  .service-price{font-size:13px;color:var(--gold);font-weight:500}
+
+  /* PACKAGES */
+  .packages-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem}
+  .pkg-card{background:var(--dark3);border:1px solid var(--border);border-radius:8px;padding:2rem;position:relative}
+  .pkg-card.featured{border-color:var(--gold)}
+  .pkg-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:#000;font-size:11px;font-weight:600;padding:4px 16px;border-radius:20px;letter-spacing:0.5px;white-space:nowrap}
+  .pkg-name{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem}
+  .pkg-price{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:700;color:var(--text);margin-bottom:0.25rem}
+  .pkg-price span{font-size:14px;font-weight:400;color:var(--muted);font-family:'Inter',sans-serif}
+  .pkg-desc{font-size:13px;color:var(--muted);margin-bottom:1.5rem;line-height:1.7}
+  .pkg-features{list-style:none;margin-bottom:2rem}
+  .pkg-features li{font-size:13px;color:var(--muted);padding:6px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+  .pkg-features li.yes{color:var(--text)}
+  .pkg-features li.yes::before{content:'✓';color:var(--gold);font-size:12px;flex-shrink:0}
+  .pkg-features li.no::before{content:'–';color:var(--border);flex-shrink:0}
+  .pkg-btn{width:100%;padding:12px;border-radius:4px;font-size:14px;font-weight:500;cursor:pointer;letter-spacing:0.5px;border:1px solid var(--border);background:transparent;color:var(--text);transition:all 0.2s}
+  .pkg-btn:hover{border-color:var(--gold);color:var(--gold)}
+  .pkg-btn.featured-btn{background:var(--gold);color:#000;border-color:var(--gold)}
+  .pkg-btn.featured-btn:hover{background:var(--gold-light)}
+
+  /* BOOKING FORM */
+  .booking-section{background:var(--dark2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .booking-wrap{max-width:1100px;margin:0 auto;padding:6rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+  .booking-info h2{font-family:'Playfair Display',serif;font-size:2.2rem;margin-bottom:1rem}
+  .booking-info p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:2rem}
+  .booking-contact{display:flex;flex-direction:column;gap:1rem}
+  .contact-item{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--muted)}
+  .contact-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0}
+  .form-card{background:var(--dark3);border:1px solid var(--border);border-radius:8px;padding:2rem}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+  .form-group{margin-bottom:1rem}
+  .form-group label{display:block;font-size:12px;color:var(--muted);letter-spacing:0.5px;margin-bottom:6px;text-transform:uppercase}
+  .form-group input,.form-group select,.form-group textarea{width:100%;background:var(--dark);border:1px solid var(--border);border-radius:4px;padding:10px 14px;font-size:14px;color:var(--text);font-family:'Inter',sans-serif;outline:none;transition:border-color 0.2s}
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+  .form-group select option{background:var(--dark)}
+  .form-group textarea{resize:vertical;min-height:100px}
+  .mpesa-note{background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.25);border-radius:4px;padding:12px 16px;font-size:12px;color:var(--gold);margin-bottom:1.5rem;line-height:1.6}
+  .submit-btn{width:100%;background:var(--gold);color:#000;font-size:14px;font-weight:600;padding:14px;border-radius:4px;cursor:pointer;border:none;letter-spacing:0.5px;transition:background 0.2s}
+  .submit-btn:hover{background:var(--gold-light)}
+
+  /* TESTIMONIALS */
+  .testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+  .testi-card{background:var(--dark3);border:1px solid var(--border);border-radius:8px;padding:2rem}
+  .stars{color:var(--gold);font-size:14px;margin-bottom:1rem;letter-spacing:2px}
+  .testi-card p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:1.5rem;font-style:italic}
+  .testi-author{display:flex;align-items:center;gap:12px}
+  .avatar{width:40px;height:40px;border-radius:50%;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--gold);flex-shrink:0}
+  .author-name{font-size:13px;font-weight:500}
+  .author-role{font-size:12px;color:var(--muted)}
+
+  /* FOOTER */
+  footer{background:var(--dark2);border-top:1px solid var(--border);padding:3rem 2rem;text-align:center}
+  .footer-logo{font-family:'Playfair Display',serif;font-size:24px;color:var(--gold);margin-bottom:1rem}
+  .footer-links{display:flex;justify-content:center;gap:2rem;margin-bottom:1.5rem;flex-wrap:wrap}
+  .footer-links a{font-size:13px;color:var(--muted);transition:color 0.2s}
+  .footer-links a:hover{color:var(--gold)}
+  .footer-copy{font-size:12px;color:var(--border)}
+
+  /* SUCCESS MODAL */
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:999;align-items:center;justify-content:center}
+  .modal-overlay.active{display:flex}
+  .modal{background:var(--dark3);border:1px solid var(--gold);border-radius:8px;padding:3rem;max-width:420px;width:90%;text-align:center}
+  .modal-icon{font-size:3rem;margin-bottom:1rem}
+  .modal h3{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:0.75rem}
+  .modal p{font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:2rem}
+  .modal-close{background:var(--gold);color:#000;border:none;padding:10px 28px;border-radius:4px;font-size:14px;font-weight:600;cursor:pointer}
+
+  @media(max-width:768px){
+    .booking-wrap{grid-template-columns:1fr}
+    .form-row{grid-template-columns:1fr}
+    nav .nav-links{display:none}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">larrydesigns</div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#packages">Packages</a></li>
+    <li><a href="#booking">Book now</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Get started</button>
+</nav>
+
+<div class="hero">
+  <p class="hero-tag">Creative Studio — Nairobi, Kenya</p>
+  <h1>Where <span>Design</span> Meets<br>Excellence</h1>
+  <p>Premium graphic design, academic writing, branding & video production. Your vision, crafted with precision.</p>
+  <div class="hero-btns">
+    <button class="btn-gold" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Book a project</button>
+    <button class="btn-outline" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">View packages</button>
+  </div>
+  <div class="hero-stats">
+    <div><div class="stat-num">200+</div><div class="stat-label">Projects delivered</div></div>
+    <div><div class="stat-num">98%</div><div class="stat-label">Client satisfaction</div></div>
+    <div><div class="stat-num">5★</div><div class="stat-label">Average rating</div></div>
+    <div><div class="stat-num">48h</div><div class="stat-label">Average turnaround</div></div>
+  </div>
+</div>
+
+<section id="services">
+  <p class="section-tag">What we do</p>
+  <h2 class="section-title">Services</h2>
+  <p class="section-sub">From brand identity to academic papers — every deliverable is crafted with intention and excellence.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🎨</div>
+      <h3>Graphic Design</h3>
+      <p>Logos, posters, flyers, social media kits and full brand identity packages that make you stand out.</p>
+      <ul class="service-includes">
+        <li>Logo design & brand identity</li>
+        <li>Social media graphics</li>
+        <li>Posters & flyers</li>
+        <li>Business cards & stationery</li>
+        <li>Canva templates</li>
+      </ul>
+      <span class="service-price">From KES 1,500</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">✍️</div>
+      <h3>Academic Writing</h3>
+      <p>Essays, research papers, dissertations and reports delivered on time with proper citations and formatting.</p>
+      <ul class="service-includes">
+        <li>Essays & research papers</li>
+        <li>Dissertations & theses</li>
+        <li>Reports & proposals</li>
+        <li>Editing & proofreading</li>
+        <li>APA / MLA / Harvard formats</li>
+      </ul>
+      <span class="service-price">From KES 500/page</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🎬</div>
+      <h3>Video & Motion</h3>
+      <p>Promotional videos, intros, motion graphics and reels that capture attention and drive engagement.</p>
+      <ul class="service-includes">
+        <li>Promo & ad videos</li>
+        <li>Logo animations & intros</li>
+        <li>Social media reels</li>
+        <li>Video editing</li>
+        <li>Motion graphics</li>
+      </ul>
+      <span class="service-price">From KES 3,000</span>
+    </div>
+  </div>
+</section>
+
+<section id="packages" style="padding-top:0">
+  <p class="section-tag">Pricing</p>
+  <h2 class="section-title">Packages</h2>
+  <p class="section-sub">Transparent pricing. No hidden fees. Pay via M-Pesa instantly.</p>
+  <div class="packages-grid">
+    <div class="pkg-card">
+      <p class="pkg-name">Starter</p>
+      <div class="pkg-price">KES 1,500 <span>/ project</span></div>
+      <p class="pkg-desc">Perfect for small tasks — a logo, a flyer, a short essay or a quick social media graphic.</p>
+      <ul class="pkg-features">
+        <li class="yes">1 design or 2-page write-up</li>
+        <li class="yes">2 revisions</li>
+        <li class="yes">72hr delivery</li>
+        <li class="yes">M-Pesa payment</li>
+        <li class="no">Source files</li>
+        <li class="no">Priority support</li>
+      </ul>
+      <button class="pkg-btn" onclick="selectPackage('Starter — KES 1,500')">Book starter</button>
+    </div>
+    <div class="pkg-card featured">
+      <span class="pkg-badge">Most popular</span>
+      <p class="pkg-name">Professional</p>
+      <div class="pkg-price">KES 5,000 <span>/ project</span></div>
+      <p class="pkg-desc">Full branding kit, research paper or a short promo video — delivered professionally.</p>
+      <ul class="pkg-features">
+        <li class="yes">Full brand kit or 10-page paper</li>
+        <li class="yes">Unlimited revisions</li>
+        <li class="yes">48hr delivery</li>
+        <li class="yes">M-Pesa payment</li>
+        <li class="yes">Source files included</li>
+        <li class="yes">WhatsApp support</li>
+      </ul>
+      <button class="pkg-btn featured-btn" onclick="selectPackage('Professional — KES 5,000')">Book professional</button>
+    </div>
+    <div class="pkg-card">
+      <p class="pkg-name">Premium</p>
+      <div class="pkg-price">KES 12,000 <span>/ project</span></div>
+      <p class="pkg-desc">Comprehensive projects — full brand identity, dissertation, or a complete video campaign.</p>
+      <ul class="pkg-features">
+        <li class="yes">Full brand identity or dissertation</li>
+        <li class="yes">Unlimited revisions</li>
+        <li class="yes">24hr priority delivery</li>
+        <li class="yes">M-Pesa payment</li>
+        <li class="yes">All source files</li>
+        <li class="yes">Dedicated support line</li>
+      </ul>
+      <button class="pkg-btn" onclick="selectPackage('Premium — KES 12,000')">Book premium</button>
+    </div>
+  </div>
+</section>
+
+<div class="booking-section" id="booking">
+  <div class="booking-wrap">
+    <div class="booking-info">
+      <p class="section-tag">Book a project</p>
+      <h2>Let's work together</h2>
+      <p>Fill in the form and I'll get back to you within 2 hours. Payment is via M-Pesa — you only pay once we agree on scope and timeline.</p>
+      <div class="booking-contact">
+        <div class="contact-item"><span class="contact-dot"></span>WhatsApp: 0716 862 685</div>
+        <div class="contact-item"><span class="contact-dot"></span>M-Pesa: 0716 862 685</div>
+        <div class="contact-item"><span class="contact-dot"></span>Based in Nairobi, Kenya</div>
+        <div class="contact-item"><span class="contact-dot"></span>Available Mon–Sat, 8am–8pm</div>
+      </div>
+    </div>
+    <div class="form-card">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Full name</label>
+          <input type="text" id="f-name" placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label>Phone (M-Pesa)</label>
+          <input type="tel" id="f-phone" placeholder="07XX XXX XXX">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Service needed</label>
+        <select id="f-service">
+          <option value="">Select a service...</option>
+          <option>Graphic design — logo</option>
+          <option>Graphic design — branding kit</option>
+          <option>Graphic design — poster / flyer</option>
+          <option>Academic writing — essay</option>
+          <option>Academic writing — research paper</option>
+          <option>Academic writing — dissertation</option>
+          <option>Video — promo / ad</option>
+          <option>Video — editing</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Package</label>
+        <select id="f-package">
+          <option value="">Select a package...</option>
+          <option>Starter — KES 1,500</option>
+          <option>Professional — KES 5,000</option>
+          <option>Premium — KES 12,000</option>
+          <option>Custom — let's discuss</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Project details</label>
+        <textarea id="f-details" placeholder="Describe your project — deadline, style preferences, any references..."></textarea>
+      </div>
+      <div class="mpesa-note">
+        💳 Payment via M-Pesa to <strong>0716 862 685</strong> after we confirm your project scope. 50% deposit to start, 50% on delivery.
+      </div>
+      <button class="submit-btn" onclick="submitForm()">Send booking request</button>
+    </div>
+  </div>
+</div>
+
+<section id="testimonials">
+  <p class="section-tag">Reviews</p>
+  <h2 class="section-title">What clients say</h2>
+  <p class="section-sub">Real feedback from real clients across Kenya and beyond.</p>
+  <div class="testimonials-grid">
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p>"Larry delivered my full brand identity in under 48 hours. The logo, colours, business card — everything was exactly what I envisioned. Professional and very responsive."</p>
+      <div class="testi-author"><div class="avatar">SM</div><div><div class="author-name">Sarah M.</div><div class="author-role">Business owner, Eldoret</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p>"Got my 15-page research paper done in 24 hours. Properly referenced, well-structured, and exactly on topic. Will definitely use again for my next assignment."</p>
+      <div class="testi-author"><div class="avatar">JK</div><div><div class="author-name">James K.</div><div class="author-role">University student, Nairobi</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p>"The promo video for my salon was beyond what I expected. Clean editing, great transitions, and he understood my vision without me having to explain twice. Highly recommend!"</p>
+      <div class="testi-author"><div class="avatar">AW</div><div><div class="author-name">Amina W.</div><div class="author-role">Salon owner, Nairobi</div></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">larrydesigns</div>
+  <div class="footer-links">
+    <a href="#services">Services</a>
+    <a href="#packages">Packages</a>
+    <a href="#booking">Book now</a>
+    <a href="#testimonials">Reviews</a>
+  </div>
+  <p class="footer-copy">© 2026 larrydesigns. Nairobi, Kenya. All rights reserved.</p>
+</footer>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-icon">✅</div>
+    <h3>Booking request sent!</h3>
+    <p>Thank you! I'll review your project details and WhatsApp you within 2 hours to confirm scope and send your M-Pesa payment request to <strong>0716 862 685</strong>.</p>
+    <button class="modal-close" onclick="document.getElementById('modal').classList.remove('active')">Done</button>
+  </div>
+</div>
+
+<script>
+function selectPackage(pkg){
+  document.getElementById('f-package').value=pkg;
+  document.getElementById('booking').scrollIntoView({behavior:'smooth'});
+}
+function submitForm(){
+  const name=document.getElementById('f-name').value.trim();
+  const phone=document.getElementById('f-phone').value.trim();
+  const service=document.getElementById('f-service').value;
+  if(!name||!phone||!service){
+    alert('Please fill in your name, phone number and service needed.');
+    return;
+  }
+  document.getElementById('modal').classList.add('active');
+  document.getElementById('f-name').value='';
+  document.getElementById('f-phone').value='';
+  document.getElementById('f-service').value='';
+  document.getElementById('f-package').value='';
+  document.getElementById('f-details').value='';
+}
+</script>
+</body>
+</html>
+<script>
+(function(){
+  var s=document.createElement('style');
+  s.textContent=`
+  .wa-btn{position:fixed;bottom:28px;right:28px;z-index:999;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 12px rgba(37,211,102,0.4);transition:transform 0.2s}
+  .wa-btn:hover{transform:scale(1.1)}
+  .wa-btn svg{width:28px;height:28px;fill:#fff}
+  .wa-tooltip{position:fixed;bottom:94px;right:28px;z-index:999;background:#1C1C1C;color:#F5F5F0;font-size:12px;padding:8px 14px;border-radius:6px;border:1px solid #2A2A2A;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity 0.2s}
+  .wa-btn:hover + .wa-tooltip{opacity:1}
+
+  .portfolio-section{padding:6rem 2rem;max-width:1100px;margin:0 auto}
+  .portfolio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;margin-top:2rem}
+  .portfolio-item{background:#1C1C1C;border:1px solid #2A2A2A;border-radius:8px;overflow:hidden;cursor:pointer;transition:border-color 0.2s,transform 0.2s}
+  .portfolio-item:hover{border-color:#C9A84C;transform:translateY(-4px)}
+  .portfolio-thumb{height:180px;display:flex;align-items:center;justify-content:center;font-size:3rem;border-bottom:1px solid #2A2A2A}
+  .portfolio-info{padding:1rem}
+  .portfolio-tag{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#C9A84C;margin-bottom:4px}
+  .portfolio-title{font-size:14px;font-weight:500;color:#F5F5F0;margin-bottom:4px}
+  .portfolio-desc{font-size:12px;color:#888880}
+  .portfolio-filters{display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:2rem}
+  .filter-btn{background:transparent;border:1px solid #2A2A2A;color:#888880;font-size:12px;padding:6px 16px;border-radius:20px;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif}
+  .filter-btn.active,.filter-btn:hover{border-color:#C9A84C;color:#C9A84C}
+
+  .ig-section{background:#141414;border-top:1px solid #2A2A2A;border-bottom:1px solid #2A2A2A;padding:5rem 2rem}
+  .ig-wrap{max-width:1100px;margin:0 auto}
+  .ig-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px;margin-top:2rem}
+  .ig-item{aspect-ratio:1;background:#1C1C1C;border:1px solid #2A2A2A;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:2rem;cursor:pointer;transition:border-color 0.2s,transform 0.2s;overflow:hidden;position:relative}
+  .ig-item:hover{border-color:#C9A84C;transform:scale(1.03)}
+  .ig-overlay{position:absolute;inset:0;background:rgba(201,168,76,0.15);opacity:0;display:flex;align-items:center;justify-content:center;transition:opacity 0.2s}
+  .ig-item:hover .ig-overlay{opacity:1}
+  .ig-overlay span{font-size:11px;color:#C9A84C;font-weight:500;letter-spacing:1px}
+  .ig-handle{display:flex;align-items:center;gap:10px;margin-bottom:0.5rem}
+  .ig-handle a{color:#C9A84C;font-size:14px;font-weight:500;text-decoration:none}
+  .ig-handle a:hover{text-decoration:underline}
+  `;
+  document.head.appendChild(s);
+
+  // WhatsApp button
+  var wa=document.createElement('a');
+  wa.href='https://wa.me/254716862685?text=Hi%20Larry!%20I%20saw%20your%20website%20and%20I%27d%20like%20to%20discuss%20a%20project.';
+  wa.target='_blank';
+  wa.className='wa-btn';
+  wa.setAttribute('aria-label','Chat on WhatsApp');
+  wa.innerHTML='<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>';
+  document.body.appendChild(wa);
+  var tip=document.createElement('div');
+  tip.className='wa-tooltip';
+  tip.textContent='Chat on WhatsApp';
+  document.body.appendChild(tip);
+
+  // Portfolio section - insert before testimonials
+  var testi=document.getElementById('testimonials');
+  var portfolioHTML=`
+  <section class="portfolio-section" id="portfolio">
+    <p class="section-tag">Our work</p>
+    <h2 class="section-title" style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;margin-bottom:1rem">Portfolio</h2>
+    <p class="section-sub" style="font-size:15px;color:#888880;max-width:500px;line-height:1.8;margin-bottom:2rem">A selection of recent projects across design, writing and video.</p>
+    <div class="portfolio-filters">
+      <button class="filter-btn active" onclick="filterPortfolio('all',this)">All</button>
+      <button class="filter-btn" onclick="filterPortfolio('design',this)">Graphic design</button>
+      <button class="filter-btn" onclick="filterPortfolio('writing',this)">Academic writing</button>
+      <button class="filter-btn" onclick="filterPortfolio('video',this)">Video</button>
+    </div>
+    <div class="portfolio-grid" id="portfolio-grid">
+      <div class="portfolio-item" data-cat="design"><div class="portfolio-thumb" style="background:#1a1608">🎨</div><div class="portfolio-info"><p class="portfolio-tag">Graphic design</p><p class="portfolio-title">Savanna Café — Brand identity</p><p class="portfolio-desc">Logo, colour palette, menu design & social kit</p></div></div>
+      <div class="portfolio-item" data-cat="design"><div class="portfolio-thumb" style="background:#0d1a0d">👗</div><div class="portfolio-info"><p class="portfolio-tag">Graphic design</p><p class="portfolio-title">Zuri Fashion — Instagram kit</p><p class="portfolio-desc">30-post social media template pack in Canva</p></div></div>
+      <div class="portfolio-item" data-cat="writing"><div class="portfolio-thumb" style="background:#0d0d1a">📄</div><div class="portfolio-info"><p class="portfolio-tag">Academic writing</p><p class="portfolio-title">MBA Dissertation — 12,000 words</p><p class="portfolio-desc">Strategic management, Harvard referencing</p></div></div>
+      <div class="portfolio-item" data-cat="video"><div class="portfolio-thumb" style="background:#1a0d0d">🎬</div><div class="portfolio-info"><p class="portfolio-tag">Video production</p><p class="portfolio-title">Glam Salon — Promo reel</p><p class="portfolio-desc">60-second Instagram & TikTok promo video</p></div></div>
+      <div class="portfolio-item" data-cat="design"><div class="portfolio-thumb" style="background:#1a1608">🏢</div><div class="portfolio-info"><p class="portfolio-tag">Graphic design</p><p class="portfolio-title">BuildRight Construction — Logo</p><p class="portfolio-desc">Corporate logo + letterhead + business card</p></div></div>
+      <div class="portfolio-item" data-cat="writing"><div class="portfolio-thumb" style="background:#0d1a0d">📝</div><div class="portfolio-info"><p class="portfolio-tag">Academic writing</p><p class="portfolio-title">Research paper — Public health</p><p class="portfolio-desc">15 pages, APA 7th edition, University of Nairobi</p></div></div>
+    </div>
+  </section>`;
+  testi.insertAdjacentHTML('beforebegin', portfolioHTML);
+
+  // Instagram section - insert before footer
+  var footer=document.querySelector('footer');
+  var igHTML=`
+  <div class="ig-section">
+    <div class="ig-wrap">
+      <p style="font-size:11px;letter-spacing:3px;color:#C9A84C;text-transform:uppercase;margin-bottom:0.75rem">Follow us</p>
+      <div class="ig-handle">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#C9A84C" stroke="none"/></svg>
+        <a href="https://instagram.com/larrydesigns" target="_blank">@larrydesigns</a>
+      </div>
+      <p style="font-size:14px;color:#888880;margin-bottom:0">Follow for daily design inspiration, behind-the-scenes & client work.</p>
+      <div class="ig-grid" style="margin-top:1.5rem">
+        <div class="ig-item" style="background:#1a1608"><span style="font-size:2.5rem">🎨</span><div class="ig-overlay"><span>View post</span></div></div>
+        <div class="ig-item" style="background:#0d1a0d"><span style="font-size:2.5rem">✍️</span><div class="ig-overlay"><span>View post</span></div></div>
+        <div class="ig-item" style="background:#1a0d0d"><span style="font-size:2.5rem">🎬</span><div class="ig-overlay"><span>View post</span></div></div>
+        <div class="ig-item" style="background:#1a1608"><span style="font-size:2.5rem">🖼️</span><div class="ig-overlay"><span>View post</span></div></div>
+        <div class="ig-item" style="background:#0d0d1a"><span style="font-size:2.5rem">📐</span><div class="ig-overlay"><span>View post</span></div></div>
+        <div class="ig-item" style="background:#0d1a0d"><span style="font-size:2.5rem">💼</span><div class="ig-overlay"><span>View post</span></div></div>
+      </div>
+    </div>
+  </div>`;
+  footer.insertAdjacentHTML('beforebegin', igHTML);
+
+})();
+
+function filterPortfolio(cat, btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.portfolio-item').forEach(item=>{
+    item.style.display=(cat==='all'||item.dataset.cat===cat)?'block':'none';
+  });
+}
+</script>
+<script>
+(function(){
+  var s=document.createElement('style');
+  s.textContent=`
+  .ig-btn{position:fixed;bottom:28px;right:96px;z-index:999;width:56px;height:56px;border-radius:50%;background:#E1306C;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 0.2s}
+  .ig-btn:hover{transform:scale(1.1)}
+  .ig-btn svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:1.5}
+  .ig-tooltip{position:fixed;bottom:94px;right:90px;z-index:999;background:#1C1C1C;color:#F5F5F0;font-size:12px;padding:8px 14px;border-radius:6px;border:1px solid #2A2A2A;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity 0.2s}
+  .ig-btn:hover + .ig-tooltip{opacity:1}
+  `;
+  document.head.appendChild(s);
+
+  var ig=document.createElement('a');
+  ig.href='https://instagram.com/larrydesigns';
+  ig.target='_blank';
+  ig.className='ig-btn';
+  ig.setAttribute('aria-label','Follow on Instagram');
+  ig.innerHTML='<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.5" fill="#fff" stroke="none"/></svg>';
+  document.body.appendChild(ig);
+
+  var tip=document.createElement('div');
+  tip.className='ig-tooltip';
+  tip.textContent='Follow on Instagram';
+  document.body.appendChild(tip);
+})();
+</script>
